@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Portfolio</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Monotype Corsiva", sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#DFE6DA;
+    color:#4f5a48;
+    font-size:18px;
+    line-height:1.7;
+}
+
+/* NAVIGATION */
+nav{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 25px;
+    background:#CBD5C0;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.logo{
+    color:#758467;
+    font-weight:bold;
+    font-size:30px;
+    letter-spacing:2px;
+}
+
+.hamburger{
+    font-size:32px;
+    cursor:pointer;
+    color:#758467;
+}
+
+/* OVERLAY */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.4);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:998;
+}
+
+/* SIDEBAR */
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-260px;
+    width:260px;
+    height:100%;
+    background:#DFE6DA;
+    box-shadow:-5px 0 15px rgba(0,0,0,.1);
+    display:flex;
+    flex-direction:column;
+    padding-top:60px;
+    transition:.3s;
+    z-index:999;
+}
+
+.sidebar a{
+    padding:15px 20px;
+    text-decoration:none;
+    color:#758467;
+    font-size:20px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.sidebar a:hover{
+    background:#CBD5C0;
+}
+
+.sidebar.active{
+    right:0;
+}
+
+.overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* HEADER */
+header{
+    background-image:url("cov.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    text-align:center;
+    padding:120px 20px;
+    position:relative;
+    color:white;
+}
+
+header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.45);
+}
+
+.header-content{
+    position:relative;
+    z-index:2;
+}
+
+.profile{
+    width:340px;
+    height:440px;
+    border-radius:100%;
+    border:5px solid #9CAF88;
+    object-fit:cover;
+}
+
+header h1{
+    font-size:60px;
+    font-weight:bold;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#FFFFFF;
+
+    text-shadow:
+        3px 3px 8px rgba(0,0,0,0.9),
+        0 0 15px rgba(0,0,0,0.7);
+
+    margin-bottom:15px;
+}
+
+header p{
+    font-size:24px;
+    color:#DFE6DA;
+    margin-bottom:20px;
+}
+
+.header-btn{
+    display:inline-block;
+    padding:14px 30px;
+    border-radius:30px;
+    background:#758467;
+    color:white;
+    font-weight:bold;
+    font-size:18px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.header-btn:hover{
+    background:#9CAF88;
+    transform:translateY(-3px);
+}
+
+/* SECTIONS */
+section{
+    width:85%;
+    margin:35px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    border-top:5px solid #9CAF88;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+section:hover{
+    transform:translateY(-5px);
+}
+
+section p,
+section li{
+    font-size:20px;
+}
+
+/* TITLES */
+h1{
+    color:#758467;
+    margin-bottom:15px;
+    font-size:38px;
+}
+
+h2{
+    color:#758467;
+    border-left:5px solid #9CAF88;
+    padding-left:12px;
+    margin-bottom:20px;
+    font-size:34px;
+}
+
+/* CARDS */
+.card{
+    background:#DFE6DA;
+    padding:20px;
+    margin-top:15px;
+    border-radius:12px;
+    border-left:5px solid #758467;
+    transition:.3s;
+    font-size:20px;
+}
+
+.card:hover{
+    background:#CBD5C0;
+    transform:translateX(5px);
+}
+
+.card b{
+    font-size:22px;
+    color:#5f6e54;
+}
+
+/* SKILLS */
+.skills{
+    margin-top:15px;
+}
+
+.skills span{
+    display:inline-block;
+    background:#758467;
+    color:white;
+    padding:10px 18px;
+    margin:5px;
+    border-radius:25px;
+    font-size:18px;
+    transition:.3s;
+}
+
+.skills span:hover{
+    background:#9CAF88;
+    color:#2f352b;
+}
+
+/* DOCUMENT LINKS */
+.doc a{
+    color:#758467;
+    font-weight:bold;
+    text-decoration:none;
+    font-size:18px;
+}
+
+.doc a:hover{
+    color:#9CAF88;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+/* GALLERY */
+.gallery-slider{
+    display:flex;
+    overflow-x:auto;
+    gap:20px;
+    padding:20px 0;
+    scroll-behavior:smooth;
+}
+
+.gallery-slider::-webkit-scrollbar{
+    height:10px;
+}
+
+.gallery-slider::-webkit-scrollbar-thumb{
+    background:#758467;
+    border-radius:10px;
+}
+
+.gallery-card{
+    min-width:350px;
+    background:#DFE6DA;
+    border-radius:15px;
+    overflow:hidden;
+    flex-shrink:0;
+    transition:.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.gallery-card:hover{
+    transform:translateY(-8px);
+}
+
+.gallery-card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.gallery-card p{
+    padding:15px;
+    text-align:center;
+    font-size:18px;
+}
+
+/* HERO BUTTONS */
+.hero-buttons{
+    text-align:center;
+    margin:30px 0;
+}
+
+.hero-buttons a{
+    display:inline-block;
+    margin:10px;
+    padding:14px 30px;
+    background:#758467;
+    color:white;
+    border-radius:30px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.hero-buttons a:hover{
+    background:#9CAF88;
+    transform:translateY(-3px);
+}
+
+/* CONTACT */
+#contact p{
+    font-size:20px;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    background:#758467;
+    color:white;
+    padding:20px;
+    margin-top:30px;
+    font-size:18px;
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:768px){
+
+    .profile{
+        width:220px;
+        height:280px;
+    }
+
+    header h1{
+        font-size:36px;
+    }
+
+    header p{
+        font-size:18px;
+    }
+
+    h2{
+        font-size:28px;
+    }
+
+    section{
+        width:95%;
+    }
+
+    .gallery-card{
+        min-width:280px;
+    }
+}
+</style>
+</head>
+
+<script>
+const gallery = document.getElementById("galleryTrack");
+
+function slideRight(){
+    gallery.scrollBy({
+        left: 300,
+        behavior: "smooth"
+    });
+}
+
+function slideLeft(){
+    gallery.scrollBy({
+        left: -300,
+        behavior: "smooth"
+    });
+}
+
+</script>
+
+<script>
+
+function openSidebar() {
+    document.getElementById("sidebar").classList.add("active");
+    document.getElementById("overlay").classList.add("active");
+}
+
+function closeSidebar() {
+    document.getElementById("sidebar").classList.remove("active");
+    document.getElementById("overlay").classList.remove("active");
+}
+</script>
+<body>
+
+<nav>
+    <div class="logo">PORTFOLIO</div>
+
+    <div class="hamburger" onclick="openSidebar()">
+        ☰
+    </div>
+</nav>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- SIDEBAR MENU -->
+<div class="sidebar" id="sidebar">
+    <a href="#about" onclick="closeSidebar()">About</a>
+    <a href="#education" onclick="closeSidebar()">Education</a>
+    <a href="#experience" onclick="closeSidebar()">Experience</a>
+    <a href="#research" onclick="closeSidebar()">Research</a>
+    <a href="#certificates" onclick="closeSidebar()">Certificates</a>
+    <a href="#skills" onclick="closeSidebar()">Skills</a>
+    <a href="#OJT Trainings" onclick="closeSidebar()">OJT Trainings</a>
+    <a href="#capstone-defense" onclick="closeSidebar()">Defense</a>
+    <a href="#Capstone Journey" onclick="closeSidebar()">Journey</a>
+    <a href="#contact" onclick="closeSidebar()">Contact</a>
+</div>
+
+<header>
+    <div class="header-content">
+        <img src="christine.jpg.jpg" class="profile">
+        <h1>CHRISTINE JOY CADAVOS</h1>
+        <p>Bachelor of Science in Information Systems</p>
+
+        <a href="#about" class="header-btn">View Profile</a>
+    </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>About Me</h2>
+<p>
+I am a Bachelor of Science in Information Systems student with a passion for technology, system development, and data management. Through academic projects and On-the-Job Training at the LGU Panabo, City Health Office – PhilHealth Section, I have gained hands-on experience in documentation, data processing, administrative support, and client services. I am a motivated learner who values professionalism, adaptability, and continuous growth. My goal is to apply my technical and analytical skills to develop efficient solutions and contribute positively to organizations while advancing my career in the field of Information Systems.
+</p>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+    <h2>Educational Attainment</h2>
+
+    <div class="card">
+        <b>College:</b> Bachelor of Science in Information Systems<br>
+        <b>School Name:</b> Davao del Norte State College<br>
+        <b>Year:</b> 2022 – Present
+    </div>
+
+    <div class="card">
+        <b>Senior High School:</b> General Academic Strand (GAS)<br>
+        <b>School Name:</b> Bernardino B. Bosque National High School<br>
+        <b>Year:</b> 2020 – 2022
+    </div>
+
+    <div class="card">
+        <b>Junior High School:</b> Secondary Education<br>
+        <b>School Name:</b> Bernardino B. Bosque National High School<br>
+        <b>Year:</b> 2016 – 2020
+    </div>
+
+    <div class="card">
+        <b>Elementary:</b> Primary Education<br>
+        <b>School Name:</b> Pablo M. Piatos Integrated School<br>
+        <b>Year:</b> 2010 – 2016
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+    <h2>Work Experience (OJT)</h2>
+
+    <div class="card">
+        <b>On-the-Job Training:</b> LGU Panabo, City Health Office – PhilHealth Section<br>
+        <b>Duration:</b> February 2, 2026 - May 20, 2026<br><br>
+
+        <b>Tasks:</b><br>
+        • Encoding patient PhilHealth records<br>
+        • Assisting clients with inquiries and transactions<br>
+        • Documentation and data management<br>
+        • Facilitator for official PhilHealth system (iClinicSys)<br>
+        • Supports daily office operations and coordination
+</div>
+</section>
+    
+
+<section id="references">
+    <h2>References</h2>
+
+    <div class="card">
+        <b>Supervisor:</b> Jimbo I. Salvador<br>
+        <b>Position:</b> PHIC Coordinator<br>
+        <b>Office:</b> LGU Panabo, City Health Office<br>
+        <b>Contact:</b> email: 111jisal@gmail.com <br>
+    </div>
+
+    <div class="card">
+        <b>Co-Intern Reference:</b> Shiena Mae D. Dakit <br>
+        <b>Role:</b> OJT Intern – PhilHealth Section <br>
+        <b>Contact:</b> email: dakit.shienamae@dnsc.edu.ph <br>
+    </div>
+
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+<h2>Research Projects</h2>
+
+<div class="card">
+<b>PAG-ILA: HRM System with RFID Attendance</b>
+<p>Capstone project for Automated HR Management of Penong's.</p>
+<div class="doc">
+📄 <a href="CAPSTONE.pdf" target="_blank">View Research Paper</a>
+📄 <a href="caps.pdf" target="_blank">View Project Completion Certificate</a>
+</div>
+</div>
+
+<div class="card">
+<b>The Impact of Software Efficacy Towards BPO Workers Job Performance in Selected Industries in Davao City</b>
+<p>Research about the impact of Software Efficacy to BPO's .</p>
+<div class="doc">
+📄 <a href="re.pdf" target="_blank">View Research Paper</a>
+</div>
+</div>
+
+<div class="card">
+<b>System Analysis and Design</b>
+<p>Inventory System of Ranz Photography Stocks.</p>
+<div class="doc">
+📄 <a href="SAD.pdf" target="_blank">View Documentation</a>
+</div>
+</div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+<h2>Certificates of Seminar & Trainings</h2>
+
+<div class="grid">
+
+<div class="card">
+<b>OJT Completion Certificate</b>
+<p>Completed 486 hours On-the-Job Training.</p>
+<div class="doc">
+📄 <a href="PH.pdf" target="_blank">View Certificate</a>
+</div>
+<div class="doc">
+📄 <a href="peso.pdf" target="_blank">View Certificate</a>
+</div>
+</div>
+
+<div class="card">
+<b>Web Development Training</b>
+<p>PYTHON ESSENTIALS 1&2 Certificate</p>
+<div class="doc">
+📄 <a href="P1.pdf" target="_blank">View Certificate</a>
+</div>
+<div class="doc">
+📄 <a href="P2.pdf" target="_blank">View Certificate</a>
+</div>
+</div>
+
+<div class="card">
+<b>PATENT Seminar</b>
+<p>Seminar on Protecting Innovation: Hands-On Training in Intellectual Property Rights and Patent Filing .</p>
+<div class="doc">
+📄 <a href="PATENT.pdf" target="_blank">View Certificate</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<h2>Skills</h2>
+<div class="skills">
+<span>HTML</span>
+<span>Documentation</span>
+<span>Editing</span>
+</div>
+</section>
+
+<section id="OJT Trainings">
+    <h2>Photo Gallery</h2>
+    <h1>OJT Activities</h1>
+
+    <div class="gallery-slider">
+
+        <div class="gallery-card">
+            <img src="1.jpg" alt="OJT Activity">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="2.jpg" alt="Office Work">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="3.jpg" alt="Seminar">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="4.jpg" alt="Training">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="5.jpg" alt="Research Defense">
+        </div>
+
+        <div class="gallery-card">
+            <img src="6.jpg" alt="Certificate">
+        </div>
+
+    </div>
+</section>
+
+<section id="capstone-defense">
+    <h1>Capstone Defense</h1>
+
+    <div class="gallery-slider">
+
+        <div class="gallery-card">
+            <img src="a.jpg" alt="OJT Activity">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="b.jpg" alt="Office Work">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="c.jpg" alt="Seminar">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="d.jpg" alt="Training">
+            
+
+    </div>
+</section>
+
+    <section id="Capstone Journey">
+    <h1>Capstone Journey</h1>
+
+    <div class="gallery-slider">
+
+        <div class="gallery-card">
+            <img src="j1.jpg" alt="OJT Activity">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="j2.jpg" alt="Office Work">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="j3.jpg" alt="Seminar">
+            
+        </div>
+
+        <div class="gallery-card">
+            <img src="j4.jpg" alt="Training">
+
+        </div>
+
+        <div class="gallery-card">
+            <img src="j5.jpg" alt="Training">
+        </div>
+
+        <div class="gallery-card">
+            <img src="j6.jpg" alt="Training">
+        </div>
+
+        <div class="gallery-card">
+            <img src="j7.jpg" alt="Training">
+        </div>
+        <div class="gallery-card">
+            <img src="j8.jpg" alt="Training">
+        </div>
+        <div class="gallery-card">
+            <img src="j9.jpg" alt="Training">
+        </div>
+        <div class="gallery-card">
+            <img src="j10.jpg" alt="Training">
+        </div>
+        <div class="gallery-card">
+            <img src="j11.jpg" alt="Training">
+         </div>           
+
+    </div>
+</section>
+
+<div class="hero-buttons">
+    <a href="#research">View Research</a>
+    <a href="#contact">Contact Me</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>Contact</h2>
+<p>Email: cadavoscj@gmail.com</p>
+<p>Phone: 09931273056</p>
+<p>Facebook: <br> <a href="https://web.facebook.com/cj.cadavos/"> Christine Joy Cadavos </a> </p>
+</section>
+
+
+<footer>
+© 2026 Christine Joy Cadavos |  Portfolio
+</footer>
+
+</body>
+</html>
